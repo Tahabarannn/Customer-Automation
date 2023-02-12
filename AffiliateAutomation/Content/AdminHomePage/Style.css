@@ -1,0 +1,11 @@
+﻿.content{
+    width: 100%;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--color-info-dark);
+}
+
+.content h1{
+    font-size: 45px;
+}

@@ -1,0 +1,104 @@
+﻿
+@{
+    Layout = null;
+}
+
+
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Betzmark</title>
+    <!-- MATERIAL CDN -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Sharp"
+          rel="stylesheet">
+    <!-- STYLESHEET -->
+    <link href="~/Content/_AdminLayout/style.css?Version=2" rel="stylesheet" />
+
+    <link rel="icon" href="~/Image/HomePage/favicon_package_v0.16/favicon.ico" type="image/x-icon">
+</head>
+
+<body>
+    <div class="container">
+        <!------------------------- START OF ASIDE -------------------------------------------->
+        <aside>
+            <div class="top">
+                <div class="logo">
+                    <img src="~/Image/_AdminLayout/Logo V1.png">
+                </div>
+                <div class="close" id="close-btn">
+                    <span class="material-icons-sharp">close</span>
+                </div>
+            </div>
+
+            <div class="sidebar">
+                <a href="~/UserPanel/DashBoard">
+                    <span class="material-icons-sharp">space_dashboard</span>
+                    <h3>Gösterge Paneli</h3>
+                </a>
+                <a href="~/UserPanel/MyAffiliates">
+                    <span class="material-icons-sharp">person_outline</span>
+                    <h3>Ortaklar</h3>
+                </a>
+                <a href="~/UserPanel/PassiveAffiliates">
+                    <span class="material-icons-sharp">person_outline</span>
+                    <h3>Pasif Ortaklar</h3>
+                </a>
+                <a href="~/UserPanel/FraudAffiliates">
+                    <span class="material-icons-sharp">heart_broken</span>
+                    <h3>Yasaklı Ortaklar</h3>
+                </a>
+                <a href="~/UserPanel/MyForm">
+                    <span class="material-icons-sharp">description</span>
+                    <h3>Form</h3>
+                    <span class="message-count">  </span>
+                </a>
+                <a href="/UserPanel/UserProfile">
+                    <span class="material-icons-sharp">manage_accounts</span>
+                    <h3>Ayarlar</h3>
+                </a>
+                <a href="~/UserPanel/NewAffiliate">
+                    <span class="material-icons-sharp">person_add</span>
+                    <h3>Ortak Ekle</h3>
+                </a>
+                <a href="/Login/LogOut">
+                    <span class="material-icons-sharp">logout</span>
+                    <h3>Çıkış</h3>
+                </a>
+            </div>
+        </aside>
+        <!------------------------- END OF ASIDE -------------------------------------------->
+        <main>
+            <div class="main-content">
+                @RenderBody()
+            </div>
+        </main>
+        <!------------------------- END OF MAIN -------------------------------------------->
+        <div class="right">
+            <div class="top">
+                <button id="menu-btn">
+                    <span class="material-icons-sharp">menu</span>
+                </button>
+                <div class="theme-toggler">
+                    <span class="material-icons-sharp active">light_mode</span>
+                    <span class="material-icons-sharp">dark_mode</span>
+                </div>
+                <div class="profile">
+                    <div class="info">
+                        <p>Merhaba, <b>@Session["Username"]</b></p>
+                        <small class="text-muted">@Session["UserTitle"]</small>
+                    </div>
+                    <div class="profile-photo">
+                        <img src="@Session["UserImage"]">
+                    </div>
+                </div>
+            </div>
+            <!-- END OF TOP -->
+        </div>
+    </div>
+
+    <script src="~/Scripts/_AdminLayout/main.js"></script>
+</body>
+</html>

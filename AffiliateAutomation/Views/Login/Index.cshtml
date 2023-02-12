@@ -1,0 +1,64 @@
+﻿@model EntityLayer.Concrete.Admin
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Affiliate Takip</title>
+    <link href="~/Content/LoginPage/style.css" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css?family=Poppins:600&display=swap" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/a81368914c.js"></script>
+    <script src="https://www.google.com/recaptcha/api.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+    <!------------------ ADD POPUP -------------->
+    @if (TempData["LoginFailed"] != null)
+    {
+        <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+        <script>
+            Swal.fire("Başarısız!", "Kullanıcı Adı veya Şifreyi yanlış girdiniz.", 'error');
+        </script>
+
+    }
+
+    <img class="wave" src="~/Image/LoginPage/wave.png">
+    <div class="container">
+        <div class="img">
+            <img src="~/Image/LoginPage/bg.png">
+        </div>
+        <div class="login-content">
+            @using (Html.BeginForm("Index", "Login", FormMethod.Post))
+            {
+                <img src="~/Image/LoginPage/avatar.png">
+                <h2 class="title">Hoşgeldin</h2>
+                <div class="input-div one">
+                    <div class="i">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <div class="div">
+                        <h5>Kullanıcı Adı</h5>
+                        <input type="text" class="input" name="AdminUserName">
+                    </div>
+                </div>
+                <div class="input-div pass">
+                    <div class="i">
+                        <i class="fas fa-lock"></i>
+                    </div>
+                    <div class="div">
+                        <h5>Şifre</h5>
+                        <input type="password" class="input" name="AdminPassword">
+                    </div>
+                </div>
+                <div><h5>@TempData["LoginFailed"]</h5></div>
+                <div class="g-recaptcha" data-sitekey="6LfVG-UgAAAAAOmBHWJiqbcfPFQ_XHBQV6NYUl-w"></div>
+                <input type="submit" class="btn" value="Giriş">
+            }
+        </div>
+    </div>
+    <script src="~/Scripts/LoginPage/main.js"></script>
+</body>
+</html>

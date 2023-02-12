@@ -1,0 +1,146 @@
+main .main-content table {
+    background: var(--color-white);
+    width: 100%;
+    border-radius: var(--card-border-radius);
+    padding: var(--card-padding);
+    margin-top: 1rem;
+    text-align: center;
+    box-shadow: var(--box-shadow);
+    transition: all 300ms ease;
+}
+
+main .main-content table:hover {
+    box-shadow: none;
+}
+
+main .main-content td {
+    height: 2.8rem;
+    border-bottom: 1px solid var(--color-light);
+    color: var(--color-dark-variant);
+}
+
+main table tbody tr:last-child td {
+    border: none;
+}
+
+main .main-content a {
+    color: var(--color-primary);
+}
+
+main .main-content a:hover {
+    color: var(--color-primary-variant);
+}
+
+main .main-content .btn {
+    border: 1px dashed var(--color-primary);
+    background: none;
+    padding: 10px 20px;
+    font-size: 15px;
+    cursor: pointer;
+    margin: 10px;
+    transition: 0.8s ease;
+    align-items: center;
+}
+
+main .main-content .button {
+    color: var(--color-primary);
+}
+
+.box {
+    margin-top: 15px;
+    max-width: 250px;
+    width: 100%;
+}
+
+.box .search-box {
+    position: relative;
+    height: 40px;
+    max-width: 230px;
+    margin: auto;
+    box-shadow: 0 5px 10px rgba(0,0,0,0.25);
+    border-radius: 25px;
+    font-family: poppins, sans-serif;
+}
+
+.search-box input {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    border-radius: 25px;
+    background-color: var(--color-white);
+    outline: none;
+    border: none;
+    padding-left: 10px;
+    font-size: 13px;
+}
+
+.search-box .search-icon {
+    position: absolute;
+    right: -2px;
+    top: 0;
+    width: 40px;
+    background: var(--color-primary);
+    height: 100%;
+    border-radius: 0 25px 25px 0;
+    text-align: center;
+    line-height: 57px;
+    color: var(--color-white);
+    cursor: pointer;
+}
+
+.search-box .search-icon input{
+    display: none;
+    visibility:hidden;
+}
+
+    .pagination {
+        text-align: center;
+        margin: 30px 30px 60px;
+        user-select: none;
+    }
+
+    .pagination li{
+        display: inline-block;
+        margin: 5px;
+        box-shadow: 0 5px 25px rgb(1 1 1 / 10%);
+    }
+
+    .pagination li a {
+        color: var(--color-info);
+        text-decoration: none;
+        font-size: 0.8rem;
+        line-height: 25px;
+    }
+
+    .previous-page, .next-page {
+        background: var(--color-white);
+        width: 48px;
+        border-radius: 40px;
+        cursor: pointer;
+        transition: 0.3s ease;
+    }
+
+    .previous-page:hover {
+        transform: translateX(-5px);
+    }
+
+    .next-page:hover {
+        transform: translateX(5px);
+    }
+
+    .current-page, .dots {
+        background: var(--color-white);
+        width: 25px;
+        border-radius: 50%;
+        cursor: pointer;
+    }
+
+
+    .active {
+        background: var(--color-primary);
+    }
+
+    .disable {
+        background: var(--color-white);
+    }
+

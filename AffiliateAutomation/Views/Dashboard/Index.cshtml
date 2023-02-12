@@ -1,0 +1,97 @@
+﻿@using EntityLayer.Concrete
+@model List<Affiliate>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+<!------------------------- CSS -------------------------------------------->
+<link href="~/Content/DashBoard/Style.css?Version=2" rel="stylesheet" />
+<!------------------------- CHART JS -------------------------------------------->
+<script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0?Version=2"></script>
+
+<h1>Gösterge Paneli</h1>
+<div class="date">
+    @Html.TextBox("CurrentDate", DateTime.Now.ToString("dd, MMMM, yyyy"), new { @class = "dateInput", disabled = "disabled" })
+</div>
+
+<div class="insights">
+    <div class="expenses">
+        <canvas id="myChart" width="440" height="300">
+        </canvas>
+
+        <script>
+
+            var ctx = document.getElementById('myChart').getContext('2d');
+            var chart = new Chart(ctx, {
+                // The type of chart we want to create
+                type: 'pie',
+
+                // The data for our dataset
+                data: {
+                    labels: ['Youtube', 'Facebook', 'Twitch', 'Twitter', 'Instagram', 'Telegram', 'Web'],
+                    datasets: [{
+                        label: 'Veri Grafiği',
+                        backgroundColor: [
+                            'rgba(255, 0, 0)',
+                            'rgba(66, 103, 178)',
+                            'rgba(100, 65, 164)',
+                            'rgba(29, 161, 242)',
+                            'rgba(188, 42, 141)',
+                            'rgba(34, 158, 217)',
+                            'rgba(244, 194, 13)'
+
+                        ],
+                        borderColor: [
+
+                        ],
+                        data: [@ViewBag.Youtube, @ViewBag.Facebook, @ViewBag.Twitch, @ViewBag.Twitter, @ViewBag.Instagram, @ViewBag.Telegram, @ViewBag.Web]
+                    }]
+                },
+
+                // Configuration options go here
+                options: {}
+            });
+        </script>
+    </div>
+    <!------------------------- END OF EXPENSES -------------------------------------------->
+    <div class="expenses">
+        <canvas id="myChart" width="400" height="250">
+        </canvas>
+        <script defer
+                src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&callback=initMap">
+        </script>
+
+
+    </div>
+    <!------------------------- END OF INCOME -------------------------------------------->
+</div>
+<!------------------------- END OF INSIGHTS -------------------------------------------->
+
+<div class="recent-orders">
+    <h2>Son Kayıtlar</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>İsim</th>
+                <th>Aff ID</th>
+                <th>Platform</th>
+                <th>Kullanıcı</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.AccountName</td>
+                    <td>@item.PartnerID</td>
+                    <td>@item.SocialMedia.SocialMediaPlatform</td>
+                    <td class="warning">@item.User.Username</td>
+                    <td class="primary"><a href="/Affiliate/EditAffiliate/@item.AffID">Detay</a></td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <a href="~/Dashboard/GetFullRecent">Hepsini Göster</a>
+</div>
+

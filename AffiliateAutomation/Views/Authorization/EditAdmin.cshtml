@@ -1,0 +1,73 @@
+﻿@model EntityLayer.Concrete.Admin
+
+@{
+    ViewBag.Title = "EditAdmin";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+
+<!-- Body CSS -->
+<link href="~/Content/AffiliateAdd/bodystyle.css" rel="stylesheet" />
+
+@if (TempData["EditAdmin"] != null)
+{
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        swal.fire("Başarılı!", "Kullanıcı bilgileri güncellenemedi!", 'success');
+    </script>
+
+}
+
+<h1>Kullanıcı</h1>
+<div class="date">
+    @Html.TextBox("CurrentDate", DateTime.Now.ToString("dd, MMMM, yyyy"), new { @class = "dateInput", disabled = "disabled" })
+</div>
+
+
+@using (Html.BeginForm("EditAdmin", "Authorization", FormMethod.Post))
+{
+    <div class="form-content">
+        <form>
+            <div class="row">
+                @Html.AntiForgeryToken()
+                @Html.HiddenFor(x => x.AdminID)
+
+                <div class="column">
+                    @Html.Label("Durum")
+                    <div class="select">
+                        @Html.DropDownListFor(x => x.IsActiveID, (List<SelectListItem>)ViewBag.vlia)
+                    </div>
+                </div>
+
+                <div class="column">
+                    @Html.Label("Kullanıcı Adı")
+                    @Html.TextBoxFor(x => x.AdminUserName, new { placeholder = "Kullanıcı Adını giriniz." })
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="column">
+                    @Html.Label("Şifre")
+                    @Html.TextBoxFor(x => x.AdminPassword, new { placeholder = "Şifre giriniz." })
+                </div>
+
+                <div class="column">
+                    @Html.Label("Ünvan")
+                    <div class="select">
+                        @Html.DropDownListFor(x => x.AdminRoleID, (List<SelectListItem>)ViewBag.vla)
+                    </div>
+                </div>
+
+                <div class="column">
+                    @Html.Label("Server Ip")
+                    @Html.TextBoxFor(x => x.ServerIp, new { placeholder = "White List için IP giriniz." })
+                </div>
+            </div>
+
+            <button class="btn">Güncelle</button>
+        </form>
+    </div>
+
+}
+
+

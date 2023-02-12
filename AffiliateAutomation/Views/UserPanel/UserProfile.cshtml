@@ -1,0 +1,45 @@
+﻿@model EntityLayer.Concrete.User
+
+@{
+    ViewBag.Title = "UserProfile";
+    Layout = "~/Views/Shared/_UserLayout.cshtml";
+}
+
+
+<!-- STYLECSS -->
+<link href="~/Content/ProfilePage/Style.css?Version=1" rel="stylesheet" />
+
+<h1>Profili Düzenle</h1>
+
+@if (TempData["ProfileEdit"] != null)
+{
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        Swal.fire("Başarılı!", "Bilgiler güncellendi!", 'success');
+    </script>
+
+}
+
+<div class="box">
+    <img class="img" src="@Session["UserImage"]" />
+
+    @using (Html.BeginForm("Index", "EditProfile", FormMethod.Post))
+    {
+        @Html.AntiForgeryToken()
+        @Html.HiddenFor(x => x.AdminID)
+        @Html.HiddenFor(x => x.IsActiveID)
+        @Html.HiddenFor(x => x.ServerIp)
+        @Html.TextBoxFor(x => x.Username, new { type = "text", placeholder = "Kullanıcı Adı", disabled = "disabled" })
+        @Html.TextBoxFor(x => x.Password, new { type = "text", placeholder = "Şifre", disabled = "disabled" })
+        @Html.TextBoxFor(x => x.Skype, new { type = "text", placeholder = "Skype" })
+        @Html.TextBoxFor(x => x.Telegram, new { type = "text", placeholder = "Telegram" })
+
+        @Html.DropDownListFor(x => x.ImageID, (List<SelectListItem>)ViewBag.vpi, new { @class = "select" })
+
+        <button style="float: left;margin:10px 0 0 0%;">Güncelle</button>
+
+    }
+</div>
+
+
+

@@ -1,0 +1,115 @@
+main .form-content{
+    margin-top: 3rem;
+    margin-bottom: 0.8rem;
+    width: 100%;
+    background: var(--color-white);
+    border-radius: var(--card-border-radius);
+    padding: var(--card-padding);
+    text-align: center;
+    box-shadow: var(--box-shadow);
+    transition: all 300ms ease;
+}
+
+main .form-content:hover{
+    box-shadow: none;
+}
+
+form{
+    position: relative;
+    margin: 30px auto 0 auto;
+    width: 95%;
+    min-width: 420px;
+}
+
+.row{
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px,1fr));
+    grid-gap: 20px 30px;
+    margin-bottom: 50px;
+}
+
+label{
+    color: var(--color-primary);
+    font-size: 14px;
+}
+
+.row input{
+    width: 100%;
+    height: 65%;
+    font-weight: 400;
+    font-family: poppins, sans-serif;
+    color: var(--color-info-dark);
+    padding: 8px 10px;
+    border-radius: 5px;
+    border: 1.2px solid black;
+    margin-top: 5px;
+}
+
+.row textarea {
+    width: 100%;
+    height: 65%;
+    font-weight: 400;
+    font-family: poppins, sans-serif;
+    color: var(--color-info-dark);
+    padding: 8px 10px;
+    border-radius: 5px;
+    border: 1.2px solid black;
+    margin-top: 5px;
+    resize: none;
+    overflow: hidden;
+}
+
+.row input:focus,
+select:focus,
+textarea:focus{
+    outline: none;
+    border-color: var(--color-primary);
+}
+
+select{
+    position: relative;
+    width: 100%;
+    height: 41px;
+}
+
+select{
+    -webkit-appearance: none;
+    appearance: none;
+    border: 1.2px solid black;
+    color: var(--color-info-dark);
+    font-family: poppins, sans-serif;
+    width: 100%;
+    height: 100%;
+    padding: 8px 10px;
+    margin-top: 5px;
+    border-radius: 5px;
+    outline: none;
+}
+
+select::before{
+    content: "";
+    position: absolute;
+    top: 19px;
+    right: 10px;
+    border: 8px solid;
+    border-color: var(--color-info-dark) transparent transparent transparent;
+}
+
+.btn{
+    width: 25%;
+    padding: 8px 10px;
+    font-size: 14px;
+    font-family: poppins, sans-serif;
+    border: 0;
+    background-color: transparent;
+    border: 2px dashed var(--color-primary);
+    color: var(--color-primary);
+    cursor: pointer;
+}
+
+.btn:hover{
+    color: #fff;
+    background-color: var(--color-primary);
+}
+

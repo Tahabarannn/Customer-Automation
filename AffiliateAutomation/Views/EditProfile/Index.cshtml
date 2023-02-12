@@ -1,0 +1,43 @@
+﻿@model EntityLayer.Concrete.Admin
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<!-- STYLECSS -->
+<link href="~/Content/ProfilePage/Style.css?Version=1" rel="stylesheet" />
+
+<h1>Profili Düzenle</h1>
+
+@if (TempData["ProfileEdit"] != null)
+{
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        Swal.fire("Başarılı!", "Bilgiler güncellendi!", 'success');
+    </script>
+
+}
+
+<div class="box">
+    <img class="img" src="@Session["AdminImage"]" />
+
+    @using (Html.BeginForm("Index", "EditProfile", FormMethod.Post))
+    {
+        @Html.AntiForgeryToken()
+        @Html.HiddenFor(x => x.AdminID)
+        @Html.HiddenFor(x => x.IsActiveID)
+        @Html.HiddenFor(x => x.AdminRoleID)
+        @Html.HiddenFor(x => x.ServerIp)
+        @Html.TextBoxFor(x => x.AdminUserName, new { type = "text", placeholder = "Kullanıcı Adı" })
+        @Html.TextBoxFor(x => x.AdminPassword, new { type = "text", placeholder = "Şifre" })
+        @Html.TextBoxFor(x => x.AdminSkype, new { type = "text", placeholder = "Skype" })
+        @Html.TextBoxFor(x => x.AdminTelegram, new { type = "text", placeholder = "Telegram" })
+
+        @Html.DropDownListFor(x => x.ImageID, (List<SelectListItem>)ViewBag.vpi, new { @class = "select" })
+
+        <button style="float: left;margin:10px 0 0 0%;">Güncelle</button>
+
+    }
+</div>
+

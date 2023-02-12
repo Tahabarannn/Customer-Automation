@@ -1,0 +1,59 @@
+﻿@model EntityLayer.Concrete.Admin
+
+@{
+    ViewBag.Title = "AddAdmin";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<!-- Body CSS -->
+<link href="~/Content/AffiliateAdd/bodystyle.css" rel="stylesheet" />
+
+<!------------------ ADD POPUP -------------->
+@if (TempData["AddAdmin"] != null)
+{
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        Swal.fire("Başarılı!", "Admin Kaydı Tamamlandı!", 'success');
+    </script>
+
+}
+
+<h1>Admin Ekle</h1>
+<div class="date">
+    @Html.TextBox("CurrentDate", DateTime.Now.ToString("dd, MMMM, yyyy"), new { @class = "dateInput", disabled = "disabled" })
+</div>
+
+@using (Html.BeginForm("AddAdmin", "Authorization", FormMethod.Post))
+
+{
+    <div class="form-content">
+        <form>
+            <div class="row">
+                @Html.AntiForgeryToken()
+                <div class="column">
+                    @Html.Label("Admin Kullanıcı Adı")
+                    @Html.TextBoxFor(x => x.AdminUserName, new { placeholder = "Admin Kullanıcı Adını giriniz.", required = "required" })
+                </div>
+
+                <div class="column">
+                    @Html.Label("Şifre")
+                    @Html.TextBoxFor(x => x.AdminPassword, new { placeholder = "Şifre giriniz.", required = "required" })
+                </div>
+            </div>
+            <div class="row">
+                <div class="column">
+                    @Html.Label("Rolü")
+                    <div class="select">
+                        @Html.DropDownListFor(x => x.AdminRoleID, (List<SelectListItem>)ViewBag.vla)
+                    </div>
+                </div>
+                <div class="column">
+                    @Html.Label("Server Ip")
+                    @Html.TextBoxFor(x => x.ServerIp, new { placeholder = "White List için IP giriniz." })
+                </div>
+            </div>
+            <button class="btn">Admin Ekle</button>
+        </form>
+    </div>
+}
+

@@ -1,0 +1,56 @@
+﻿@using EntityLayer.Concrete
+@model List<Brand>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<!-- BodyStyle CSS -->
+<link href="~/Content/Affiliate/bodystyle.css" rel="stylesheet" />
+
+
+<h1>Markalar</h1>
+<div class="date">
+    @Html.TextBox("CurrentDate", DateTime.Now.ToString("dd, MMMM, yyyy"), new { @class = "dateInput", disabled = "disabled" })
+</div>
+
+<!--==================== POPUP ====================-->
+@if (TempData["BrandActive"] != null)
+{
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        Swal.fire("Başarılı!", "Marka Aktifleştirildi!", 'success');
+    </script>
+
+}
+
+@if (TempData["BrandPassive"] != null)
+{
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        Swal.fire("Başarılı!", "Marka Pasifleştirildi!", 'success');
+    </script>
+
+}
+
+<table>
+    <thead>
+        <tr>
+            <th>Marka</th>
+            <th>Durum</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.Product</td>
+                <td>@item.IsActive.Active</td>
+                <td><a href="/Brand/DeleteBrand/@item.BrandID">Aktif/Pasif Et</a></td>
+            </tr>
+        }
+    </tbody>
+</table>
+<br />
+@Html.Action("BrandPartial", "Brand")

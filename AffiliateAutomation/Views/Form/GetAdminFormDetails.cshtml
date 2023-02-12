@@ -1,0 +1,139 @@
+﻿@model EntityLayer.Concrete.Form
+
+@{
+    ViewBag.Title = "GetFormDetails";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+
+<!-- Google Fonts Icons -->
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<!-- Style Css -->
+<link href="~/Content/FormPage/style.css?Version=4" rel="stylesheet" />
+
+<!-- Pop Up -->
+@if (TempData["FormEdit"] != null)
+{
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        Swal.fire("Başarılı!", "Forma Admin atandı!", 'success');
+    </script>
+
+}
+
+@if (TempData["SpamForm"] != null)
+{
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        swal.fire("Başarılı!", "Form Spam Olarak İşaretlendi!", 'success');
+    </script>
+
+}
+
+@if (TempData["UnSpamForm"] != null)
+{
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        swal.fire("Başarılı!", "Form Aktif Olarak İşaretlendi!", 'success');
+    </script>
+
+}
+
+<h1>Formlar</h1>
+<div class="date">
+    @Html.TextBox("CurrentDate", DateTime.Now.ToString("dd, MMMM, yyyy"), new { @class = "dateInput", disabled = "disabled" })
+</div>
+
+
+<!-- Header Starts -->
+<div class="header">
+    <div class="header__left">
+        <span class="material-icons">menu</span>
+    </div>
+
+    <div class="header__right">
+        <span class="material-icons">apps</span>
+        <span class="material-icons">notifications</span>
+        <span class="material-icons">account_circle</span>
+    </div>
+</div>
+<!-- Header Ends -->
+<!-- Main Body Starts -->
+<div class="main__body">
+    <!-- Sidebar Starts -->
+    <div class="sidebarForm">
+        <div class="sidebarOption">
+            <span class="material-icons">inbox</span>
+            <a href="~/Form/AdminIndex">
+                <h3>Gelen Formlar</h3>
+            </a>
+        </div>
+
+        <div class="sidebarOption">
+            <span class="material-icons">star</span>
+            <a href="~/Form/AdminPassive">
+                <h3>Atanan Formlar</h3>
+            </a>
+        </div>
+
+        <div class="sidebarOption">
+            <span class="material-icons">filter_alt</span>
+            <a href="~/Form/AdminSpam">
+                <h3>Spam</h3>
+            </a>
+        </div>
+
+    </div>
+    <!-- Sidebar Ends -->
+    <!-- Email List Starts -->
+    <div class="emailList">
+        <!-- Settings Starts -->
+        <!-- Settings Ends -->
+        <!-- Email List Row Starts -->
+        <div class="emailList__list" id="emaildetails__message">
+            <!-- Email Row Starts -->
+            <div class="emaildetails__header">
+                <div class="emaildetails__headerLeft">
+                    <h4>@Html.DisplayFor(x => x.SocialMedia)</h4>
+                    <span class="material-icons">arrow_right</span>
+                </div>
+
+                <div class="emaildetails__headerRight">
+                    <p></p>
+                </div>
+            </div>
+
+            <div class="emaildetails__middleheader">
+                <div class="emaildetails__middleheaderLeft">
+                    <h4>
+                        @Html.DisplayFor(x => x.AffMail)
+                    <span style="display:block;padding-top:8px;">
+                        @Html.DisplayFor(x => x.FormStatus.Status)
+                    </span>
+                </h4>
+            </div>
+
+            <div class="emaildetails__middleheaderRight">
+                <span>@Html.Action("FormAddAdmin", "Form")</span>
+                <span><a href="/Form/DeleteForm/@ViewBag.d"><span class="material-icons">delete</span></a></span>
+                <p>@DateTime.Parse(Html.DisplayFor(x => x.FormDate).ToString()).ToShortDateString()</p>
+            </div>
+        </div>
+
+        <div class="emaildetails_body">
+            <ul>
+                <li><b>İletişim </b><span>@Html.DisplayFor(x => x.Contact)</span></li>
+                <li><b>Sosyal Medya Linkleri </b><span class="socialist">@Html.DisplayFor(x => x.SocialMediaLink)</span></li>
+                <li><b>Çalışma Stili </b><span>@Html.DisplayFor(x => x.WorkType)</span></li>
+                <li><b>Ücret </b><span>@Html.DisplayFor(x => x.Price) ₺</span></li>
+                <li><b>Not </b><span>@Html.DisplayFor(x => x.Explanation)</span></li>
+                <li><b>Referanslar </b><span>@Html.DisplayFor(x => x.Reference)</span></li>
+            </ul>
+        </div>
+        <!-- Email Row Ends -->
+    </div>
+    <!-- Email List Row Ends -->
+</div>
+<!-- Email List Ends -->
+</div>
+<!-- Main Body Ends -->

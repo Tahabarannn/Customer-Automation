@@ -1,0 +1,44 @@
+﻿@model EntityLayer.Concrete.Status
+
+<!-- BodyStyle  -->
+<link href="~/Content/BrandPopup/Style.css" rel="stylesheet" />
+
+<button class="open" id="open">Durum Ekle</button>
+
+<!------------------ ADD POPUP -------------->
+@if (TempData["AddStatus"] != null)
+{
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        Swal.fire("Başarılı!", "Durum Kaydı Tamamlandı!", 'success');
+    </script>
+
+}
+
+<div class="modal-container" id="modal_container">
+    <div class="modal">
+        <div class="close" id="close">
+            <span class="material-icons-sharp">close</span>
+        </div>
+        <h2>Yeni Durum Ekle</h2>
+        @using (Html.BeginForm("AddStatus", "Status", FormMethod.Post))
+        {
+            <div class="form-content">
+                <form>
+                    <div class="row">
+                        @Html.AntiForgeryToken()
+                        <div class="column">
+                            @Html.TextBoxFor(x => x.State, new { placeholder = "Durum giriniz!" })
+
+                            <button class="btn">Ekle</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        }
+
+    </div>
+</div>
+
+<script src="~/Scripts/PopUp/PopupScript.js"></script>
+

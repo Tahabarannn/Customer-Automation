@@ -1,0 +1,43 @@
+﻿@model EntityLayer.Concrete.Brand
+
+<!-- BodyStyle  -->
+<link href="~/Content/BrandPopup/Style.css" rel="stylesheet" />
+
+@if (TempData["AddBrand"] != null)
+{
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        Swal.fire("Başarılı!", "Marka Kaydı Tamamlandı!", 'success');
+    </script>
+
+}
+
+<button class="open" id="open">Marka Ekle</button>
+
+<div class="modal-container" id="modal_container">
+    <div class="modal">
+        <div class="close" id="close">
+            <span class="material-icons-sharp">close</span>
+        </div>
+        <h2>Yeni Marka Ekle</h2>
+        @using (Html.BeginForm("AddBrand", "Brand", FormMethod.Post))
+        {
+            <div class="form-content">
+                <form>
+                    @Html.AntiForgeryToken()
+                    <div class="row">
+                        <div class="column">
+                            @Html.TextBoxFor(x => x.Product, new { placeholder = "Marka ismi giriniz!", required = "required" })
+
+                            <button class="btn">Ekle</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        }
+
+    </div>
+</div>
+
+<script src="~/Scripts/PopUp/PopupScript.js"></script>
+

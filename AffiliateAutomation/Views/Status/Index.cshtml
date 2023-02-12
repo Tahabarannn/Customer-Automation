@@ -1,0 +1,61 @@
+﻿@using EntityLayer.Concrete
+@model List<Status>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<!-- BodyStyle CSS -->
+<link href="~/Content/Affiliate/bodystyle.css" rel="stylesheet" />
+
+
+<!--==================== POPUP ====================-->
+@if (TempData["StatusActive"] != null)
+{
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        Swal.fire("Başarılı!", "Durum aktifleştirildi!", 'success');
+    </script>
+
+}
+
+@if (TempData["StatusPassive"] != null)
+{
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        Swal.fire("Başarılı!", "Durum pasifleştirildi!", 'success');
+    </script>
+
+}
+
+<div id="PlaceHolderHere"></div>
+
+<h1>Durumlar</h1>
+<div class="date">
+    @Html.TextBox("CurrentDate", DateTime.Now.ToString("dd, MMMM, yyyy"), new { @class = "dateInput", disabled = "disabled" })
+</div>
+
+<table>
+    <thead>
+        <tr>
+            <th>Durum</th>
+            <th>Aktif/Pasif</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.State</td>
+                <td>@item.IsActive.Active</td>
+                <td><a href="/Status/DeleteStatus/@item.StatusID">Aktif/Pasif Et</a></td>
+            </tr>
+        }
+    </tbody>
+</table>
+<br />
+@Html.Action("StatusPartial", "Status")
+
+
+

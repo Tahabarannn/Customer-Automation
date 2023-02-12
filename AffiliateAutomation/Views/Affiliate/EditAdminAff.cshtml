@@ -1,0 +1,184 @@
+﻿@model EntityLayer.Concrete.Affiliate
+
+@{
+    ViewBag.Title = "EditAdminAff";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+
+<!-- Body CSS -->
+<link href="~/Content/AffiliateAdd/bodystyle.css" rel="stylesheet" />
+<script src="~/Scripts/jquery-ui-1.13.1.min.js"></script>
+<link href="~/Content/themes/base/jquery-ui.min.css" rel="stylesheet" />
+<script src="~/Scripts/jquery-3.6.0.min.js"></script>
+
+@if (TempData["EditAffiliate"] != null)
+{
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        swal.fire("Başarılı!", "Affiliate bilgileri güncellenemedi!", 'success');
+    </script>
+
+}
+
+@if (TempData["EditFailed"] != null)
+{
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <script>
+        swal.fire("Başarısız!", "Affiliate bilgileri güncellenemedi.", "error");
+    </script>
+}
+
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $(".datepicker").datepicker({
+
+        });
+    });
+</script>
+
+
+<h1>Ortak Düzenle</h1>
+<div class="date">
+    @Html.TextBox("CurrentDate", DateTime.Now.ToString("dd, MMMM, yyyy"), new { @class = "dateInput", disabled = "disabled" })
+</div>
+
+@using (Html.BeginForm("EditAffiliate", "Affiliate", FormMethod.Post))
+
+{
+    <div class="form-content">
+        <form>
+            <div class="row">
+                @Html.AntiForgeryToken()
+                @Html.HiddenFor(x => x.AffID)
+                @Html.HiddenFor(x => x.User.AdminID)
+
+                <div class="column">
+                    @Html.Label("Durum")
+                    <div class="select">
+                        @Html.DropDownListFor(x => x.IsActiveID, (List<SelectListItem>)ViewBag.vla)
+                    </div>
+                </div>
+
+                <div class="column">
+                    @Html.Label("Fraud")
+                    <div class="select">
+                        @Html.DropDownListFor(x => x.FraudID, (List<SelectListItem>)ViewBag.vlf)
+                    </div>
+                </div>
+
+                <div class="column">
+                    @Html.Label("Menajer")
+                    <div class="select">
+                        @Html.DropDownListFor(x => x.UserID, (List<SelectListItem>)ViewBag.vlu)
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="row">
+
+                <div class="column">
+                    @Html.Label("Durum")
+                    <div class="select">
+                        @Html.DropDownListFor(x => x.StatusID, (List<SelectListItem>)ViewBag.vls)
+                    </div>
+                </div>
+
+                <div class="column">
+                    @Html.Label("Marka")
+                    <div class="select">
+                        @Html.DropDownListFor(x => x.BrandID, (List<SelectListItem>)ViewBag.vlb)
+                    </div>
+                </div>
+
+                <div class="column">
+                    @Html.Label("AFF ID")
+                    @Html.TextBoxFor(x => x.PartnerID, new { placeholder = "Aff ID'yi giriniz." })
+                    @Html.ValidationMessageFor(x => x.PartnerID)
+                </div>
+
+                <div class="column">
+                    @Html.Label("Hesap Adı")
+                    @Html.TextBoxFor(x => x.AccountName, new { placeholder = "Sosyal medya kullanıcı adını giriniz." })
+                    @Html.ValidationMessageFor(x => x.AccountName)
+                </div>
+            </div>
+
+            <div class="row">
+
+                <div class="column">
+                    @Html.Label("İletişim")
+                    @Html.TextBoxFor(x => x.Contact, new { placeholder = "Ortak Skype veya Telegram adresini giriniz." })
+                </div>
+
+                <div class="column">
+                    @Html.Label("Platform")
+                    <div class="select">
+                        @Html.DropDownListFor(x => x.SocialMediaID, (List<SelectListItem>)ViewBag.vlsm)
+                    </div>
+                </div>
+
+                <div class="column">
+                    @Html.Label("Paylaşım Sayısı")
+                    @Html.TextBoxFor(x => x.DailyPostNumber, new { placeholder = "Günlük post ya da RT sayısını giriniz." })
+                </div>
+
+                <div class="column">
+                    @Html.Label("Sosyal Medya Linkleri")
+                    @Html.TextAreaFor(x => x.SocialMediaLink, new { placeholder = "Sosyal Medya linklerini giriniz." })
+                </div>
+
+                <div class="column">
+                    @Html.Label("Açıklama")
+                    @Html.TextBoxFor(x => x.Comment, new { placeholder = "Açıklama giriniz." })
+                </div>
+
+            </div>
+
+            <div class="row">
+                <div class="column">
+                    @Html.Label("Fraud Görsel Yükle")
+                    @Html.EditorFor(x => x.Image, new { htmlAttributes = new { type = "file", multiple = "true" } })
+                </div>
+
+                <div class="column">
+                    @Html.Label("Fraud Görsel")
+                    @Html.DisplayFor(x => x.Image)
+                </div>
+
+                <div class="column">
+                    @Html.Label("Kripto Cüzdan")
+                    @Html.TextBoxFor(x => x.CryptoWallet, new { placeholder = "USDT/TRC20 cüzdanı giriniz." })
+                    @Html.ValidationMessageFor(x => x.CryptoWallet)
+                </div>
+
+                <div class="column">
+                    @Html.Label("Başlangıç Tarihi")
+                    @Html.EditorFor(x => x.StartDate,
+                   additionalViewData: new { htmlAttributes = new { @redonly = "true", @class = "datepicker" } })
+                </div>
+
+                <div class="column">
+                    @Html.Label("Bitiş Tarihi")
+                    @Html.EditorFor(x => x.EndDate,
+                   additionalViewData: new { htmlAttributes = new { @redonly = "true", @class = "datepicker" } })
+                </div>
+            </div>
+
+            <button class="btn">Güncelle</button>
+        </form>
+    </div>
+}
+
+
+<script>
+    $(function () {
+        $(".datepicker").datepicker();
+    });
+</script>
+
+
+

@@ -1,0 +1,48 @@
+﻿@model EntityLayer.Concrete.Form
+
+<!-- BodyStyle  -->
+<link href="~/Content/BrandPopup/Style.css?Version=1" rel="stylesheet" />
+
+<a href="#" class="open" id="open"><span class="material-icons">star</span></a>
+
+<div class="modal-container" id="modal_container">
+    <div class="modal">
+        <div class="close" id="close">
+            <span class="material-icons-sharp">close</span>
+        </div>
+        <h2>Formun Durumu</h2>
+        <div class="form-content">
+            @using (Ajax.BeginForm("FormAddStatus", "UserPanel", new AjaxOptions { HttpMethod = "Post", InsertionMode = InsertionMode.Replace, UpdateTargetId = "Update" }))
+            {
+                @Html.AntiForgeryToken()
+                @Html.HiddenFor(x => x.FormID)
+                @Html.HiddenFor(x => x.UserID)
+                @Html.HiddenFor(x => x.AdminID)
+                @Html.HiddenFor(x => x.AffMail)
+                @Html.HiddenFor(x => x.IsActiveID)
+                @Html.HiddenFor(x => x.SocialMedia)
+                @Html.HiddenFor(x => x.Contact)
+                @Html.HiddenFor(x => x.SocialMediaLink)
+                @Html.HiddenFor(x => x.Reference)
+                @Html.HiddenFor(x => x.Explanation)
+                @Html.HiddenFor(x => x.FormDate)
+
+                <form>
+                    <div class="row">
+                        <div class="column">
+                            <div class="select" id="update">
+                                @Html.DropDownListFor(x => x.FormStatusID, (List<SelectListItem>)ViewBag.vlfs, new { @class = "select" })
+                            </div>
+                            <br />
+                            <button class="btn" id="add-btn">Ata</button>
+                        </div>
+                    </div>
+                </form>
+            }
+        </div>
+    </div>
+</div>
+
+<script src="~/Scripts/PopUp/PopupScript.js?Version=2"></script>
+<script src="~/Scripts/jquery-3.6.0.min.js"></script>
+<script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>

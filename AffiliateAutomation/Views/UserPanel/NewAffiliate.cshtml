@@ -1,0 +1,124 @@
+﻿@model EntityLayer.Concrete.Affiliate
+
+@{
+    ViewBag.Title = "NewAffiliate";
+    Layout = "~/Views/Shared/_UserLayout.cshtml";
+}
+
+<!-- Body CSS -->
+<link href="~/Content/AffiliateAdd/bodystyle.css" rel="stylesheet" />
+
+<!------------------ ADD POPUP -------------->
+@if (TempData["AddAffiliate"] != null)
+{
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        Swal.fire("Başarılı!", "Affiliate Kaydı Tamamlandı!", 'success');
+    </script>
+
+}
+
+<!------------------ ADD POPUP -------------->
+@if (TempData["FailedAffiliate"] != null)
+{
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        Swal.fire("Başarısız!", "Affiliate Kaydı Tamamlanamadı!", 'error');
+    </script>
+
+}
+
+<h1>Ortak Ekle</h1>
+<div class="date">
+    @Html.TextBox("CurrentDate", DateTime.Now.ToString("dd, MMMM, yyyy"), new { @class = "dateInput", disabled = "disabled" })
+</div>
+
+@using (Html.BeginForm("NewAffiliate", "UserPanel", FormMethod.Post))
+
+{
+    <div class="form-content">
+        <form>
+            <div class="row">
+                @Html.AntiForgeryToken()             
+                @Html.HiddenFor(x => x.StatusID)
+                @Html.HiddenFor(x => x.IsActive)
+                @Html.HiddenFor(x => x.FraudID)
+                @Html.HiddenFor(x => x.UserID)
+
+                <div class="column">
+                    @Html.Label("Marka")
+                    <div class="select">
+                        @Html.DropDownListFor(x => x.BrandID, (List<SelectListItem>)ViewBag.vlb)
+                    </div>
+                </div>
+
+                <div class="column">
+                    @Html.Label("Aff ID")
+                    @Html.TextBoxFor(x => x.PartnerID, new { placeholder = "Aff ID giriniz." })
+                    @Html.ValidationMessageFor(x => x.PartnerID)
+                </div>
+
+                <div class="column">
+                    @Html.Label("Hesap Adı")
+                    @Html.TextBoxFor(x => x.AccountName, new { placeholder = "Sosyal medya kullanıcı adını giriniz." })
+                    @Html.ValidationMessageFor(x => x.AccountName)
+                </div>
+
+                <div class="column">
+                    @Html.Label("İletişim")
+                    @Html.TextBoxFor(x => x.Contact, new { placeholder = "Skype ve ya Telegram adresini giriniz." })
+                    @Html.ValidationMessageFor(x => x.Contact)
+                </div>
+            </div>
+
+            <div class="row">
+
+                <div class="column">
+                    @Html.Label("Platform")
+                    <div class="select">
+                        @Html.DropDownListFor(x => x.SocialMediaID, (List<SelectListItem>)ViewBag.vlsm)
+                        @Html.ValidationMessageFor(x => x.SocialMediaID)
+                    </div>
+                </div>
+                <div class="column">
+                    @Html.Label("Paylaşım Sıklığı")
+                    @Html.TextBoxFor(x => x.DailyPostNumber, new { placeholder = "Günlük post ya da RT sayısını giriniz." })
+                    @Html.ValidationMessageFor(x => x.DailyPostNumber)
+                </div>
+                <div class="column">
+                    @Html.Label("Sosyal Medya Linkleri")
+                    @Html.TextAreaFor(x => x.SocialMediaLink, new { placeholder = "Sosyal Medya linklerini giriniz." })
+                </div>
+            </div>
+
+            <div class="row">
+
+                <div class="column">
+                    @Html.Label("Açıklama")
+                    @Html.TextAreaFor(x => x.Comment, new { placeholder = "Açıklama giriniz." })
+                </div>
+
+                <div class="column">
+                    @Html.Label("Kripto Cüzdan")
+                    @Html.TextBoxFor(x => x.CryptoWallet, new { placeholder = "USDT/TRC20 cüzdanı giriniz." })
+                    @Html.ValidationMessageFor(x => x.CryptoWallet)
+                </div>
+
+                <div class="column">
+                    @Html.Label("Başlangıç Tarihi")
+                    <input type="date" name="StartDate">
+                    @Html.ValidationMessageFor(x => x.StartDate)
+                </div>
+
+                <div class="column">
+                    @Html.Label("Bitiş Tarihi")
+                    <input type="date" name="EndDate">
+                    @Html.ValidationMessageFor(x => x.EndDate)
+                </div>
+            </div>
+
+            <button class="btn">Ortak Ekle</button>
+        </form>
+    </div>
+}
+

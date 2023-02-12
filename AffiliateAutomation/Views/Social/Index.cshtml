@@ -1,0 +1,58 @@
+﻿@using EntityLayer.Concrete
+@model List<SocialMedia>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<!-- BodyStyle CSS -->
+<link href="~/Content/Affiliate/bodystyle.css?Version=1" rel="stylesheet" />
+
+<!--==================== POPUP ====================-->
+@if (TempData["SocialActive"] != null)
+{
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        Swal.fire("Başarılı!", "Platform aktifleştirildi!", 'success');
+    </script>
+
+}
+
+<!--==================== POPUP ====================-->
+@if (TempData["SocialPassive"] != null)
+{
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        Swal.fire("Başarılı!", "Platform pasifleştirildi!", 'success');
+    </script>
+
+}
+
+
+<h1>Sosyal Medya</h1>
+<div class="date">
+    @Html.TextBox("CurrentDate", DateTime.Now.ToString("dd, MMMM, yyyy"), new { @class = "dateInput", disabled = "disabled" })
+</div>
+
+<table>
+    <thead>
+        <tr>
+            <th>Platform</th>
+            <th>Durum</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.SocialMediaPlatform</td>
+                <td>@item.IsActive.Active</td>
+                <td><a href="/Social/DeleteSocial/@item.SocialMediaID">Aktif/Pasif Et</a></td>
+            </tr>
+        }
+    </tbody>
+</table>
+<br />
+@Html.Action("SocialPartial", "Social")
+

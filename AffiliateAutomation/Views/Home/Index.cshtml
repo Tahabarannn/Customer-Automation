@@ -1,0 +1,570 @@
+﻿@model EntityLayer.Concrete.Form
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!--==================== UNICONS ====================-->
+    <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
+
+    <!--==================== SWIPER CSS ====================-->
+    <link href="~/Content/HomePage/swiper-bundle.min.css" rel="stylesheet" />
+
+    <!--==================== FONT AWESOME ====================-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <!--==================== CSS ====================-->
+    <link href="~/Content/HomePage/styles.css?Version=5" rel="stylesheet" />
+
+    <!--==================== JQUERY ====================-->
+    <script src="~/Scripts/jquery-3.6.0.min.js?Version=1"></script>
+
+    <title>Betzmark | Yeni Nesil Bahis Sitesi | Reklam Talep Formu</title>
+
+    <!--==================== FAVICON ====================-->
+    <link rel="icon" href="~/Image/HomePage/favicon_package_v0.16/favicon.ico" type="image/x-icon">
+</head>
+<body>
+    <!--==================== ALERTPOPUP ====================-->
+    @if (TempData["FormSaved"] != null)
+    {
+        <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+        <script>
+            swal.fire("Harika!", "Form tarafımıza ulaştı. Form takip bölümünden formunuzun durumunu öğrenebilirsiniz.", "success");
+        </script>
+    }
+
+    @if (TempData["FormError"] != null)
+    {
+        <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+        <script>
+            swal.fire("Başarısız!", "Opss.. Görüşünüşe göre bir sorun var. Lütfen bütün alanları doldurduğunuzdan emin olun.", "error");
+        </script>
+    }
+
+    <!--==================== ALERTPOPUP ====================-->
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('.chkbx').click(function () {
+                var text = "";
+                $('.chkbx:checked').each(function () {
+                    text += $(this).val() + ',';
+                });
+                text = text.substring(0, text.length - 1);
+                $('#TxtSelected').val(text);
+                var count = $("[type='checkbox']:checked").length
+            });
+        });
+    </script>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#social").keyup(function () {
+                var total = $("^#social").val();
+
+                $("#TxtSelectedLink").val(total);
+            });
+        });
+    </script>
+
+
+    <!--==================== POPUP ====================-->
+    <div class="popup__container" id="popup-container">
+        <div class="popup__content">
+            <div class="popup__close">
+                <i class="uil uil-times" title="close"></i>
+            </div>
+
+            <img src="~/Image/HomePage/Logo V1.png" alt="" class="img__popup">
+
+            <h1 class="popup__title">Betzmark Creative</h1>
+            <p class="popup__description">En güncel içerikler için takip etmeyi unutmayın!</p>
+
+            <a href="https://t.me/betzmark_creative" class="popup__button popup__button-width">Takip Et!</a>
+        </div>
+    </div>
+
+    <!--==================== HEADER ====================-->
+    <header class="header" id="header">
+        <nav class="nav container">
+            <a href="#" class="nav__logo"><img src="~/Image/HomePage/Logo V1.png"></a>
+
+            <div class="nav__menu" id="nav-menu">
+                <ul class="nav__list grid">
+                    <li class="nav__item">
+                        <a href="~/Home/Index" class="nav__link active-link">
+                            <i class="uil uil-estate nav__icon"></i> Anasayfa
+                        </a>
+                    </li>
+                    <li class="nav__item">
+                        <a href="#form" class="nav__link">
+                            <i class="uil uil-message nav__icon"></i>Reklam Formu
+                        </a>
+                    </li>
+                    <li class="nav__item">
+                        <a href="#search" class="nav__link">
+                            <i class="uil uil-envelope-search nav__icon"></i>Form Takip
+                        </a>
+                    </li>
+                    <li class="nav__item">
+                        <a href="#team" class="nav__link">
+                            <i class="uil uil-users-alt nav__icon"></i>Ekip
+                        </a>
+                    </li>
+                    <li class="nav__item">
+                        <a href="#testimonial" class="nav__link">
+                            <i class="uil uil-comment nav__icon"></i>Referans
+                        </a>
+                    </li>
+                </ul>
+                <i class="uil uil-times nav__close" id="nav-close"></i>
+            </div>
+
+            <div class="nav__btns">
+                <!-- Theme Change Button -->
+                <i class="uil uil-moon change-theme" id="theme-button"></i>
+
+                <div class="nav__toggle" id="nav-toggle">
+                    <i class="uil uil-apps"></i>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!--==================== MAIN ====================-->
+    <main class="main">
+        <!--==================== HOME ====================-->
+        <section class="home section" id="home">
+            <div class="home__container container grid">
+                <div class="home__content grid">
+                    <div class="home__social">
+                        <a href="https://www.instagram.com/officialbetzmark" target="_blank" class="home__social-icon">
+                            <i class="uil uil-instagram"></i>
+                        </a>
+
+                        <a href="https://twitter.com/off_betzmark" target="_blank" class="home__social-icon">
+                            <i class="uil uil-twitter-alt"></i>
+                        </a>
+
+                        <a href="https://t.me/betzmark_creative" target="_blank" class="home__social-icon">
+                            <i class="uil uil-telegram-alt"></i>
+                        </a>
+
+                    </div>
+
+                    <div class="home__img">
+                        <svg class="home__blob" viewBox="0 0 200 187" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                            <mask id="mask0" mask-type="alpha">
+                                <path d="M190.312 36.4879C206.582 62.1187 201.309 102.826 182.328 134.186C163.346 165.547
+                                    130.807 187.559 100.226 186.353C69.6454 185.297 41.0228 161.023 21.7403 129.362C2.45775
+                                    97.8511 -7.48481 59.1033 6.67581 34.5279C20.9871 10.1032 59.7028 -0.149132 97.9666
+                                    0.00163737C136.23 0.303176 174.193 10.857 190.312 36.4879Z" />
+                            </mask>
+                            <g mask="url(#mask0)">
+                                <path d="M190.312 36.4879C206.582 62.1187 201.309 102.826 182.328 134.186C163.346
+                                    165.547 130.807 187.559 100.226 186.353C69.6454 185.297 41.0228 161.023 21.7403
+                                    129.362C2.45775 97.8511 -7.48481 59.1033 6.67581 34.5279C20.9871 10.1032 59.7028
+                                    -0.149132 97.9666 0.00163737C136.23 0.303176 174.193 10.857 190.312 36.4879Z" />
+                                <image class="home__blob-img" x="27" y="28" xlink:href="~/Image/HomePage/mr.White.png" />
+                            </g>
+                        </svg>
+                    </div>
+
+                    <div class="home__data">
+                        <h1 class="home__title">Hey, Ben Mr.White</h1>
+                        <h3 class="home__subtitle">CEO</h3>
+                        <p class="home__description">
+                            Online Casino dünyasına ve affiliate çalışmalara yeni bir soluk getirmek için ben ve ekibim buradayız.
+                            Betzmark dünyasının eşsiz ayrıcalıklarından yararlanmak için formu doldurun.
+                        </p>
+                        <a href="#form" class="button button--flex">
+                            İletişim<i class="uil uil-message button__icon"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="home__scroll">
+                    <a href="#form" class="home__scroll-button button--flex">
+                        <i class="uil uil-mouse-alt home__scroll-mouse"></i>
+                        <span class="home__scroll-name">Kaydırın</span>
+                        <i class="uil uil-arrow-down home__scroll-arrow"></i>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!--==================== CONTACT ME ====================-->
+        @using (Html.BeginForm("Index", "Home", FormMethod.Post))
+        {
+
+            <section class="contact section" id="form">
+                <h2 class="section__title">İletişim</h2>
+                <span class="section__subtitle">Reklam Formu</span>
+
+                <div class="contact__container container grid">
+                    <form action="" class="contact__form grid">
+                        <div class="contact__inputs grid">
+                            @Html.AntiForgeryToken()
+                            @Html.HiddenFor(x => x.IsActive)
+                            @Html.HiddenFor(x => x.UserID)
+                            @Html.HiddenFor(x => x.FormDate)
+
+                            <div class="contact__content">
+                                @Html.Label("*Mail", new { @class = "contact__label" })
+                                @Html.TextBoxFor(x => x.AffMail, new { @class = "contact__input", placeholder = "Mail adresinizi giriniz" })
+                                @Html.ValidationMessageFor(x => x.AffMail)
+                            </div>
+                            <div class="contact__content">
+                                @Html.Label("*İletişim", new { @class = "contact__label" })
+                                @Html.TextBoxFor(x => x.Contact, new { @class = "contact__input", placeholder = "Skype/Telegram Adresi" })
+                                @Html.ValidationMessageFor(x => x.Contact)
+                            </div>
+                        </div>
+                        <div class="contact__content">
+                            @Html.Label("*Fiyat", new { @class = "contact__label" })
+                            @Html.TextBoxFor(x => x.Price, new { @class = "contact__input", placeholder = "Talep Ettiğiniz Fiyat Aralığı" })
+                            @Html.ValidationMessageFor(x => x.Price)
+                        </div>
+
+                        <div class="contact__content">
+                            <label class="contact__label">*Reklam almak istediğiniz platform</label>
+                            <div class="tile">
+                                <input type="checkbox" class="chkbx" value="Youtube" />
+                                <label for="chkbx"><i class="uil uil-youtube"></i>Youtube</label>
+                            </div>
+                            <div class="tile">
+                                <input type="checkbox" class="chkbx" value="Twitch" />
+                                <label for="chkbx"><i class="uil uil-robot"></i>Twitch</label>
+                            </div>
+                            <div class="tile">
+                                <input type="checkbox" class="chkbx" value="Web" />
+                                <label for="chkbx"><i class="uil uil-window"></i>Web</label>
+                            </div>
+                            <div class="tile">
+                                <input type="checkbox" class="chkbx" value="Diğer" />
+                                <label for="chkbx"><i class="uil uil-comment-alt-dots"></i>Diğer</label>
+                            </div>
+                            <div class="tile">
+                                <input type="checkbox" class="chkbx" value="Twitter" />
+                                <label for="chkbx"><i class="uil uil-twitter"></i>Twitter</label>
+                            </div>
+                            <div class="tile">
+                                <input type="checkbox" class="chkbx" value="Facebook" />
+                                <label for="chkbx"><i class="uil uil-facebook"></i>Facebook</label>
+                            </div>
+                            <div class="tile">
+                                <input type="checkbox" class="chkbx" value="Telegram" />
+                                <label for="chkbx"><i class="uil uil-telegram"></i>Telegram</label>
+                            </div>
+                            <div class="tile">
+                                <input type="checkbox" class="chkbx" value="Instagram" />
+                                <label for="chkbx"><i class="uil uil-instagram"></i>Instagram</label>
+                            </div>
+                            <div class="tile">
+                                <input type="checkbox" class="chkbx" value="Discord" />
+                                <label for="chkbx"><i class="uil uil-discord"></i>Discord</label>
+                            </div>
+                            <div class="tile">
+                                <input type="checkbox" class="chkbx" value="TikTok" />
+                                <label for="chkbx"><i class="fa-brands fa-tiktok"></i>TikTok</label>
+                            </div>
+                            <input type="text" id="TxtSelected" name="SocialMedia" style="display:none" />
+                        </div>
+
+
+                        <div class="contact__content-link">
+                            <label class="contact__label">*Hesap Linkleriniz</label>
+                            <div class="tile" id="twitter">
+                                <i class="fa-solid fa-square-plus" onclick="add_more_twitter()"></i>
+                                <input type="text" class="social" id="social" name="SocialMedia" value="https://twitter.com/" autocomplete="off" />
+                            </div>
+                            <div class="tile" id="facebook">
+                                <i class="fa-solid fa-square-plus" onclick="add_more_facebook()"></i>
+                                <input type="text" class="social" id="social" name="SocialMedia" value="https://www.facebook.com/" autocomplete="off" />
+                            </div>
+                            <div class="tile" id="telegram">
+                                <i class="fa-solid fa-square-plus" onclick="add_more_telegram()"></i>
+                                <input type="text" class="social" name="SocialMedia" value="https://t.me/" autocomplete="off" />
+                            </div>
+                            <div class="tile" id="instagram">
+                                <i class="fa-solid fa-square-plus" onclick="add_more_instagram()"></i>
+                                <input type="text" class="social" name="SocialMedia" value="https://www.instagram.com/" autocomplete="off" />
+                            </div>
+                            <div class="tile" id="youtube">
+                                <i class="fa-solid fa-square-plus" onclick="add_more_youtube()"></i>
+                                <input type="text" class="social" name="SocialMedia" value="https://www.youtube.com/" autocomplete="off" />
+                            </div>
+                            <div class="tile" id="twitch">
+                                <i class="fa-solid fa-square-plus" onclick="add_more_twitch()"></i>
+                                <input type="text" class="social" name="SocialMedia" value="https://www.twitch.tv/" autocomplete="off" />
+                            </div>
+                            <div class="tile" id="discord">
+                                <i class="fa-solid fa-square-plus" onclick="add_more_discord()"></i>
+                                <input type="text" class="social" name="SocialMedia" value="https://discord.com/" autocomplete="off" />
+                            </div>
+                            <div class="tile" id="tiktok">
+                                <i class="fa-solid fa-square-plus" onclick="add_more_tiktok()"></i>
+                                <input type="text" class="social" name="SocialMedia" value="https://www.tiktok.com/" autocomplete="off" />
+                            </div>
+                            <div class="tile" id="web">
+                                <i class="fa-solid fa-square-plus" onclick="add_more_web()"></i>
+                                <input type="text" class="social" name="SocialMedia" placeholder="Web sitesi (http(s)://..)" autocomplete="off" />
+                            </div>
+                            <input type="text" id="TxtSelectedLink" />
+                        </div>
+
+                        <div class="contact__content-textarea">
+                            <label for="" class="contact__label">*Çalışma Stilleri</label>
+                            <textarea name="WorkType" id="" cols="0" rows="7" class="contact__input" placeholder="Markaları ne tarz reklamlar ile tanıtıyorsunuz?" required></textarea>
+                        </div>
+                        <div class="contact__content-textarea">
+                            <label for="" class="contact__label">Not</label>
+                            <textarea name="Explanation" id="" cols="0" rows="7" class="contact__input" placeholder="Bize iletmek istediğiniz ekstra bir şey var mı?"></textarea>
+                        </div>
+
+                        <div class="g-recaptcha" data-sitekey="6LfVG-UgAAAAAOmBHWJiqbcfPFQ_XHBQV6NYUl-w"></div>
+
+                        <div>
+                            <button class="button button--flex">
+                                Gönder
+                                <i class="uil uil-message button__icon"></i>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </section>
+        }
+
+        <!--==================== TEAM ====================-->
+        <section class="portfolio section" id="team">
+            <h2 class="section__title">Ekibimiz</h2>
+
+            <div class="portfolio__container container swiper-container">
+                <div class="swiper-wrapper">
+                    <!--==================== Team 1 ====================-->
+                    <div class="portfolio__content grid swiper-slide">
+                        <img src="~/Image/HomePage/Kingpin.png" alt="" class="portfolio__img">
+
+                        <div class="portfolio__data">
+                            <h3 class="portfolio__title">Kingpin</h3>
+                            <p class="portfolio__description">CCO</p>
+                        </div>
+                    </div>
+
+                    <!--==================== Team 2 ====================-->
+                    <div class="portfolio__content grid swiper-slide">
+                        <img src="~/Image/HomePage/Honey.png" alt="" class="portfolio__img">
+
+                        <div class="portfolio__data">
+                            <h3 class="portfolio__title">Honey</h3>
+                            <p class="portfolio__description">Sosyal Medya Yöneticisi</p>
+                        </div>
+                    </div>
+
+                    <!--==================== Team 3 ====================-->
+                    <div class="portfolio__content grid swiper-slide">
+                        <img src="~/Image/HomePage/Richie.png" alt="" class="portfolio__img">
+
+                        <div class="portfolio__data">
+                            <h3 class="portfolio__title">Richie</h3>
+                            <p class="portfolio__description">Finans Yöneticisi</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Add Arrows -->
+                <div class="swiper-button-next">
+                    <i class="uil uil-angle-right-b swiper-portfolio-icon"></i>
+                </div>
+                <div class="swiper-button-prev">
+                    <i class="uil uil-angle-left-b swiper-portfolio-icon"></i>
+                </div>
+
+                <!-- Add Pagination -->
+                <div class="swiper-pagination"></div>
+            </div>
+        </section>
+
+        <!--==================== SEARCH ====================-->
+        <section class="search section" id="search">
+            <div class="search__bg">
+                <div class="search__container container grid">
+                    <div class="search__data">
+                        @using (Ajax.BeginForm("FormSearch", "Home", new AjaxOptions { HttpMethod = "Post", InsertionMode = InsertionMode.Replace, UpdateTargetId = "Update" }))
+                        {
+                            <div class="search__content">
+                                <input type="search" placeholder="Formda kullandığınız mail adresini girin." name="p" class="search__input" required />
+                            </div>
+                            <div id="Update">
+                                <p class="search__description">Lütfen mail adresinizi giriniz.</p>
+                            </div>
+                            <input type="submit" value="Ara" class="button button--flex button--white" />
+                        }
+
+                    </div>
+                    <img src="~/Image/HomePage/Kubiko.png" alt="" class="search__img">
+
+                </div>
+            </div>
+        </section>
+
+        <!--==================== TESTIMONIAL ====================-->
+        <section class="testimonial section" id="testimonial">
+            <h2 class="section__title">Referans</h2>
+            <span class="section__subtitle">Ortaklarımızın yorumları</span>
+
+            <div class="testimonial__container container swiper-container">
+                <div class="swiper-wrapper">
+                    <!--==================== TESTIMONIAL 1 ====================-->
+                    <div class="testimonial__content swiper-slide">
+                        <div class="testimonial_data">
+                            <div class="testimonial__header">
+                                <img src="~/Image/HomePage/Gino.png" alt="" class="testimonial__img">
+
+                                <div>
+                                    <h3 class="testimonial__name">Mr.Gino</h3>
+                                    <span class="testimonial__client">Ortak</span>
+                                </div>
+                            </div>
+
+                            <div>
+                                <i class="uil uil-star testimonial__icon-star"></i>
+                                <i class="uil uil-star testimonial__icon-star"></i>
+                                <i class="uil uil-star testimonial__icon-star"></i>
+                                <i class="uil uil-star testimonial__icon-star"></i>
+                                <i class="uil uil-star testimonial__icon-star"></i>
+                            </div>
+                        </div>
+
+                        <p class="testimonial__description">
+                            Betzmark'a geçtikten sonra sinir katsayım düştü. Herkes beni sinirli olarak bilirdi,
+                            aslında bende kendimi sinirli olarak bilirdim ancak sadece zamanında yatmayan komisyonlar
+                            ve amatörlükler beni sinirlendiriyormuş.
+                            Betzmark ile kendimi buldum, teşekkürler Betzmark!
+                        </p>
+                    </div>
+
+                    <!--==================== TESTIMONIAL 2 ====================-->
+                    <div class="testimonial__content swiper-slide">
+                        <div class="testimonial_data">
+                            <div class="testimonial__header">
+                                <img src="~/Image/HomePage/Jack.png" alt="" class="testimonial__img">
+
+                                <div>
+                                    <h3 class="testimonial__name">Mr.Jack</h3>
+                                    <span class="testimonial__client">Ortak</span>
+                                </div>
+                            </div>
+
+                            <div>
+                                <i class="uil uil-star testimonial__icon-star"></i>
+                                <i class="uil uil-star testimonial__icon-star"></i>
+                                <i class="uil uil-star testimonial__icon-star"></i>
+                                <i class="uil uil-star testimonial__icon-star"></i>
+                                <i class="uil uil-star testimonial__icon-star"></i>
+                            </div>
+                        </div>
+
+                        <p class="testimonial__description">
+                            Sayılar ve rakamlar benim için çok önemlidir.
+                            Betzmark'ın şeffaf ve anlık olarak güncellenen ortaklık paneli beni cezbetti.
+                            İstatistikler sayesinde bir sonraki hamlemi rahatlıkla planlıyabiliyorum.
+                        </p>
+                    </div>
+
+                    <!--==================== TESTIMONIAL 3 ====================-->
+                    <div class="testimonial__content swiper-slide">
+                        <div class="testimonial_data">
+                            <div class="testimonial__header">
+                                <img src="~/Image/HomePage/bunny.png" alt="" class="testimonial__img">
+
+                                <div>
+                                    <h3 class="testimonial__name">Mrs.Bunny</h3>
+                                    <span class="testimonial__client">Ortak</span>
+                                </div>
+                            </div>
+
+                            <div>
+                                <i class="uil uil-star testimonial__icon-star"></i>
+                                <i class="uil uil-star testimonial__icon-star"></i>
+                                <i class="uil uil-star testimonial__icon-star"></i>
+                                <i class="uil uil-star testimonial__icon-star"></i>
+                                <i class="uil uil-star testimonial__icon-star"></i>
+                            </div>
+                        </div>
+                        <p class="testimonial__description">
+                            Hızlı ve 7/24 alabildiğim şeffaf destek beni ve oyuncularımı
+                            fazlasıyla rahatlattı. Bende Betzmark'lıyım artık! Teşekkürler Betzmark!
+                        </p>
+                    </div>
+
+                </div>
+
+                <!-- Add Pagination -->
+                <div class="swiper-pagination swiper-pagination-testimonial"></div>
+            </div>
+        </section>
+    </main>
+
+    <!--==================== FOOTER ====================-->
+    <footer class="footer">
+        <div class="footer__bg">
+            <div class="footer__container container grid">
+                <div>
+                    <a href="#" class="footer__logo"><img src="~/Image/HomePage/Logo V1.png"></a>
+                </div>
+
+                <ul class="footer__links">
+                    <li>
+                        <a href="#home" class="footer__link">Anasayfa</a>
+                    </li>
+                    <li>
+                        <a href="#form" class="footer__link">Form</a>
+                    </li>
+                    <li>
+                        <a href="#search" class="footer__link">Form Takip</a>
+                    </li>
+                </ul>
+
+                <div class="footer__socials">
+                    <a href="https://twitter.com/off_betzmark" target="_blank" class="footer__social">
+                        <i class="uil uil-twitter-alt"></i>
+                    </a>
+
+                    <a href="https://www.instagram.com/officialbetzmark" target="_blank" class="footer__social">
+                        <i class="uil uil-instagram"></i>
+                    </a>
+
+                    <a href="https://t.me/betzmark_creative" target="_blank" class="footer__social">
+                        <i class="uil uil-telegram-alt"></i>
+                    </a>
+                </div>
+            </div>
+
+            <p class="footer__copy">&#169; Betzmark Tüm hakları saklıdır.</p>
+        </div>
+    </footer>
+
+    <!--==================== SCROLL TOP ====================-->
+    <a href="#" class="scrollup" id="scroll-up">
+        <i class="uil uil-arrow-up scrollup__icon"></i>
+    </a>
+
+    <!--==================== SWIPER JS ====================-->
+    <script src="~/Scripts/HomePage/swiper-bundle.min.js"></script>
+
+    <!--==================== MAIN JS ====================-->
+    <script src="~/Scripts/HomePage/main.js"></script>
+    <!--==================== JQUERY ====================-->
+    <script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
+    <script src="https://www.google.com/recaptcha/api.js"></script>
+</body>
+</html>

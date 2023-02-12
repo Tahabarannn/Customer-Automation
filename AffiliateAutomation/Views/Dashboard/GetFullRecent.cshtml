@@ -1,0 +1,41 @@
+﻿@using EntityLayer.Concrete
+@model List<Affiliate>
+
+@{
+    ViewBag.Title = "GetFullRecent";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<!------------------------- CSS -------------------------------------------->
+<link href="~/Content/DashBoard/Style.css" rel="stylesheet" />
+
+<h1>Son Kayıtlar</h1>
+<div class="date">
+    @Html.TextBox("CurrentDate", DateTime.Now.ToString("dd, MMMM, yyyy"), new { @class = "dateInput", disabled = "disabled" })
+</div>
+
+
+<div class="recent-orders">
+    <table>
+        <thead>
+            <tr>
+                <th>İsim</th>
+                <th>Aff ID</th>
+                <th>Platform</th>
+                <th>Kullanıcı</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.AccountName</td>
+                    <td>@item.PartnerID</td>
+                    <td>@item.SocialMedia.SocialMediaPlatform</td>
+                    <td class="warning">@item.User.Username</td>
+                    <td class="primary"><a href="/Affiliate/EditAffiliate/@item.AffID">Detay</a></td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

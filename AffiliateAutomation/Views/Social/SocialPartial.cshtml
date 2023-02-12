@@ -1,0 +1,43 @@
+﻿@model EntityLayer.Concrete.SocialMedia
+
+<!-- BodyStyle  -->
+<link href="~/Content/BrandPopup/Style.css" rel="stylesheet" />
+
+@if (TempData["SocialAdd"] != null)
+{
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        Swal.fire("Başarılı!", "Platform Kaydı Tamamlandı!", 'success');
+    </script>
+
+}
+
+<button class="open" id="open">Platform Ekle</button>
+
+<div class="modal-container" id="modal_container">
+    <div class="modal">
+        <div class="close" id="close">
+            <span class="material-icons-sharp">close</span>
+        </div>
+        <h2>Yeni Platform Ekle</h2>
+        @using (Html.BeginForm("AddSocial", "Social", FormMethod.Post))
+        {
+            <div class="form-content">
+                <form>
+                    <div class="row">
+                        @Html.AntiForgeryToken()
+                        <div class="column">
+                            @Html.TextBoxFor(x => x.SocialMediaPlatform, new { placeholder = "Platform ismi giriniz!", required = "required" })
+
+                            <button class="btn">Ekle</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        }
+
+    </div>
+</div>
+
+<script src="~/Scripts/PopUp/PopupScript.js"></script>
+

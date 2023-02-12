@@ -1,0 +1,54 @@
+﻿@using EntityLayer.Concrete
+@model List<Admin>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<!-- Style -->
+<link href="~/Content/UserPage/styles.css?Version=2" rel="stylesheet" />
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" charset="utf-8"></script>
+
+
+<h1>Adminler</h1>
+<div class="date">
+    @Html.TextBox("CurrentDate", DateTime.Now.ToString("dd, MMMM, yyyy"), new { @class = "dateInput", disabled = "disabled" })
+</div>
+
+
+<div class="cards_wrap">
+    @foreach (var item in Model)
+    {
+        <div class="card_item">
+            <div class="card_inner" style="display: none">
+                <img src="@item.ProfileImage.Image">
+                <div class="user_name">@item.AdminUserName</div>
+                <div class="title">@item.AdminRole.AdminRoleName</div>
+                <div class="contact">
+                    <li>Telegram: </li>
+                    <li>Skype: </li>
+                </div>
+                <a href="~/Authorization/EditAdmin/@item.AdminID" class="view">
+                    <span class="material-icons-sharp">person_outline</span>
+                    Profili Gör
+                </a>
+            </div>
+        </div>
+    }
+</div>
+
+<div class="pagination">
+    <!--<li class="page-item previous-page disable"><a class="page-link" href="#">Önceki</a></li>
+    <li class="page-item current-page active"><a class="page-link" href="#">1</a></li>
+    <li class="page-item dots"><a class="page-link" href="#">...</a></li>
+    <li class="page-item current-page"><a class="page-link" href="#">5</a></li>
+    <li class="page-item current-page"><a class="page-link" href="#">7</a></li>
+    <li class="page-item dots"><a class="page-link" href="#">...</a></li>
+    <li class="page-item current-page"><a class="page-link" href="#">10</a></li>
+    <li class="page-item next-page"><a class="page-link" href="#">Sonraki</a></li>-->
+</div>
+
+
+<script src="~/Scripts/Pagination/UserPagination.js"></script>

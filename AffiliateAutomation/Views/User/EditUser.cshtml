@@ -1,0 +1,80 @@
+﻿@model EntityLayer.Concrete.User
+
+@{
+    ViewBag.Title = "EditUser";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<!-- Body CSS -->
+<link href="~/Content/AffiliateAdd/bodystyle.css" rel="stylesheet" />
+
+@if (TempData["UserEdit"] != null)
+{
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        swal.fire("Başarılı!", "Kullanıcı bilgileri güncellenemedi!", 'success');
+    </script>
+
+}
+
+<h1>Kullanıcı</h1>
+<div class="date">
+    @Html.TextBox("CurrentDate", DateTime.Now.ToString("dd, MMMM, yyyy"), new { @class = "dateInput", disabled = "disabled" })
+</div>
+
+
+@using (Html.BeginForm("EditUser", "User", FormMethod.Post))
+{
+    <div class="form-content">
+        <form>
+            <div class="row">
+                @Html.AntiForgeryToken()
+                @Html.HiddenFor(x => x.UserID)
+
+                <div class="column">
+                    @Html.Label("Durum")
+                    <div class="select">
+                        @Html.DropDownListFor(x => x.IsActiveID, (List<SelectListItem>)ViewBag.vla)
+                    </div>
+                </div>
+
+                <div class="column">
+                    @Html.Label("Kullanıcı Adı")
+                    @Html.TextBoxFor(x => x.Username, new { placeholder = "Kullanıcı Adını giriniz." })
+                    @Html.ValidationMessageFor(x => x.Username)
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="column">
+                    @Html.Label("Şifre")
+                    @Html.TextBoxFor(x => x.Password, new { placeholder = "Şifre giriniz." })
+                    @Html.ValidationMessageFor(x => x.Password)
+                </div>
+
+                <div class="column">
+                    @Html.Label("Takım Lideri")
+                    <div class="select">
+                        @Html.DropDownListFor(x => x.AdminID, (List<SelectListItem>)ViewBag.vla)
+                    </div>
+                </div>
+
+                <div class="column">
+                    @Html.Label("Ünvan")
+                    @Html.TextBoxFor(x => x.Title, new { placeholder = "Kullanıcı ünvan giriniz." })
+                    @Html.ValidationMessageFor(x => x.Title)
+                </div>
+
+                <div class="column">
+                    @Html.Label("Server Ip")
+                    @Html.TextBoxFor(x => x.ServerIp, new { placeholder = "White List için IP giriniz." })
+                    @Html.ValidationMessageFor(x => x.ServerIp)
+                </div>
+            </div>
+
+            <button class="btn">Güncelle</button>
+        </form>
+    </div>
+
+}
+

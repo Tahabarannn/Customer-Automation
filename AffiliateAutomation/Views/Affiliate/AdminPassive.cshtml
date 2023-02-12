@@ -1,0 +1,79 @@
+﻿@using EntityLayer.Concrete
+@model List<Affiliate>
+
+@{
+    ViewBag.Title = "AdminPassive";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<link href="~/Content/DataTables/css/dataTables.bootstrap4.css" rel="stylesheet" />
+<!-- BodyStyle CSS -->
+<link rel="stylesheet" type="text/css" href="~/Content/Affiliate/bodystyle.css?Version=4" />
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" charset="utf-8"></script>
+
+
+<h1>Pasif Ortaklar</h1>
+<div class="date">
+    @Html.TextBox("CurrentDate", DateTime.Now.ToString("dd, MMMM, yyyy"), new { @class = "dateInput", disabled = "disabled" })
+</div>
+
+
+<!-- Search -->
+
+<div class="box">
+    <div class="search-box">
+        <input type="text" id="search" placeholder="Search" />
+        <label class="search-icon">
+            <span class="material-icons-sharp">
+                search
+            </span>
+            <input type="submit" />
+        </label>
+    </div>
+</div>
+
+<!-- Table -->
+
+
+<table>
+    <thead>
+        <tr>
+            <th>Affiliate Menajeri</th>
+            <th>Aff ID</th>
+            <th>Hesap Adı</th>
+            <th>Platform</th>
+            <th>Başlangıç Tarihi</th>
+            <th>Bitiş Tarihi</th>
+        </tr>
+    </thead>
+    <tbody class="item-content">
+        @foreach (var item in Model)
+        {
+            <tr class="aff-item" style="display: none">
+                <td>@item.User.Username</td>
+                <td>@item.PartnerID</td>
+                <td>@item.AccountName</td>
+                <td>@item.SocialMedia.SocialMediaPlatform</td>
+                <td>@(((DateTime)item.StartDate).ToString("dd-MM-yyyy"))</td>
+                <td>@(((DateTime)item.EndDate).ToString("dd-MM-yyyy"))</td>
+                <td><a href="/Affiliate/EditAdminAff/@item.AffID">Detay</a></td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<div class="pagination">
+    <!--<li class="page-item previous-page disable"><a class="page-link" href="#">Önceki</a></li>
+    <li class="page-item current-page active"><a class="page-link" href="#">1</a></li>
+    <li class="page-item dots"><a class="page-link" href="#">...</a></li>
+    <li class="page-item current-page"><a class="page-link" href="#">5</a></li>
+    <li class="page-item current-page"><a class="page-link" href="#">7</a></li>
+    <li class="page-item dots"><a class="page-link" href="#">...</a></li>
+    <li class="page-item current-page"><a class="page-link" href="#">10</a></li>
+    <li class="page-item next-page"><a class="page-link" href="#">Sonraki</a></li>-->
+</div>
+
+<script src="~/Scripts/Pagination/Pagination.js?Version=1"></script>
+<script src="~/Scripts/Search/Search.js"></script>
+

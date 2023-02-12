@@ -1,0 +1,142 @@
+﻿@using EntityLayer.Concrete
+@model List<Form>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<!-- Google Fonts Icons -->
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<!-- Style Css -->
+<link href="~/Content/FormPage/style.css?Version=2" rel="stylesheet" />
+<!-- JQUERY -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" charset="utf-8"></script>
+
+
+<h1>Gelen Formlar</h1>
+<div class="date">
+    @Html.TextBox("CurrentDate", DateTime.Now.ToString("dd, MMMM, yyyy"), new { @class = "dateInput", disabled = "disabled" })
+</div>
+
+
+<!-- Header Starts -->
+<div class="header">
+    <div class="header__left">
+    </div>
+
+    <div class="header__middle">
+        <span class="material-icons">search</span>
+        <input type="text" id="search" placeholder="Form Ara" />
+        <span class="material-icons">arrow_drop_down</span>
+    </div>
+
+    <div class="header__right">
+        <span class="material-icons">apps</span>
+        <span class="material-icons">notifications</span>
+    </div>
+</div>
+<!-- Header Ends -->
+<!-- Main Body Starts -->
+<div class="main__body">
+    <!-- Sidebar Starts -->
+    <div class="sidebarForm">
+        <div class="sidebarOption">
+            <span class="material-icons">inbox</span>
+            <a href="~/Form/Index">
+                <h3>Gelen Formlar</h3>
+            </a>
+        </div>
+
+        <div class="sidebarOption">
+            <span class="material-icons">star</span>
+            <a href="~/Form/PassiveForm">
+                <h3>Atanan Formlar</h3>
+            </a>
+        </div>
+
+        <div class="sidebarOption">
+            <span class="material-icons">filter_alt</span>
+            <a href="~/Form/SpamForm">
+                <h3>Spam</h3>
+            </a>
+        </div>
+
+    </div>
+    <!-- Sidebar Ends -->
+    <!-- Email List Starts -->
+    <div class="emailList">
+        <!-- Settings Starts -->
+        <div class="emailList__settings">
+            <div class="emailList__settingsLeft">
+                <input type="checkbox" id="selectAll" />
+                <span class="material-icons">arrow_drop_down</span>
+                <span class="material-icons">redo</span>
+                <span class="material-icons">more_vert</span>
+            </div>
+
+            <div class="emailList__settingsRight">
+                <span class="material-icons">@Html.Action("FormAddUser", "Form")</span>
+                <span><a href="/Form/DeleteForm/@ViewBag.d"><span class="material-icons">delete</span></a></span>
+            </div>
+        </div>
+        <!-- Settings Ends -->
+        <!-- Email List Row Starts -->
+        <div class="emailList__list">
+            <!-- Email Row Starts -->
+            @foreach (var item in Model)
+            {
+                <div class="emailRow" style="display: none">
+                    <div class="emailRow__options">
+                        <input type="checkbox" name="FormIds" value="@item.FormID" />
+                        <span class="material-icons">star_border</span>
+                    </div>
+                    <h3 class="emailRow__title"><a href="~/Form/GetFormDetails/@item.FormID">@item.AffMail</a></h3>
+
+                    <div class="emailRow__message">
+                        <h4>
+                            <a href="~/Form/GetFormDetails/@item.FormID">
+                                @item.SocialMedia
+                            </a>
+                            <span class="emailRow__description">@item.Price</span>
+
+                        </h4>
+                    </div>
+
+                    <p class="emailRow__time">@(((DateTime)item.FormDate).ToString("dd-MM-yyyy"))</p>
+                </div>
+            }
+            <!-- Email Row Ends -->
+        </div>
+        <div class="pagination">
+            <!--<li class="page-item previous-page disable"><a class="page-link" href="#">Önceki</a></li>
+            <li class="page-item current-page active"><a class="page-link" href="#">1</a></li>
+            <li class="page-item dots"><a class="page-link" href="#">...</a></li>
+            <li class="page-item current-page"><a class="page-link" href="#">5</a></li>
+            <li class="page-item current-page"><a class="page-link" href="#">7</a></li>
+            <li class="page-item dots"><a class="page-link" href="#">...</a></li>
+            <li class="page-item current-page"><a class="page-link" href="#">10</a></li>
+            <li class="page-item next-page"><a class="page-link" href="#">Sonraki</a></li>-->
+        </div>
+        <!-- Email List Row Ends -->
+    </div>
+    <!-- Email List Ends -->
+</div>
+<!-- Main Body Ends -->
+
+<script>
+    $(function () {
+
+        $("#selectAll").click(function () {
+            $("input[type=checkbox]").prop('checked', $(this).prop('checked'));
+        });
+        $("input[type=checkbox]").click(function () {
+            if (!$(this).prop('checked')) {
+                $("#selectAll").prop("checked", false);
+            }
+        });
+    });
+</script>
+
+<script src="~/Scripts/Pagination/FormPagination.js?Version=4"></script>
+<script src="~/Scripts/Search/FormSearch.js"></script>
